@@ -22,7 +22,7 @@ const init = () => {
         categoryGroup.className = 'category-group col-span-full';
 
         const title = document.createElement('h2');
-        title.className = 'text-xl font-bold text-indigo-400 mb-4 mt-8 first:mt-0';
+        title.className = 'text-xl font-bold text-sky-400 mb-4 mt-8 first:mt-0';
         title.textContent = category.name; 
 
         const toolsContainer = document.createElement('div');
@@ -30,11 +30,11 @@ const init = () => {
 
         category.tools.forEach(tool => {
             const toolCard = document.createElement('div');
-            toolCard.className = 'tool-card bg-gray-800 rounded-xl p-4 cursor-pointer flex flex-col items-center justify-center text-center';
+            toolCard.className = 'tool-card rounded-2xl bg-slate-900/60 border border-slate-800 p-4 cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200 hover:border-sky-500/40 hover:-translate-y-1';
             toolCard.dataset.toolId = tool.id; 
 
             const icon = document.createElement('i');
-            icon.className = 'w-10 h-10 mb-3 text-indigo-400';
+            icon.className = 'w-10 h-10 mb-3 text-sky-400';
             icon.setAttribute('data-lucide', tool.icon);
 
             const toolName = document.createElement('h3');
