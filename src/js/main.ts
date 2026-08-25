@@ -7,6 +7,7 @@ import "../css/styles.css";
 
 import { initRandomLetterSwap } from './randomLetterSwap.js';
 import { initDitherEffect } from './ditherEffect.js';
+import { initScroll3D } from './scroll3d.js';
 
 const init = () => {
     pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -114,6 +115,12 @@ const init = () => {
     }
 
     createIcons({ icons });
+
+    // Hans-Tools branding effects
+    initDitherEffect('#dither-canvas');
+    initRandomLetterSwap('.rls-title');
+    initScroll3D(document);
+
     console.log('Please share our tool and share the love!');
 };
 
