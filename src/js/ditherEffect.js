@@ -18,7 +18,7 @@ export function initDitherEffect(target = '#dither-canvas') {
     'height:100%',
     'pointer-events:none',
     'z-index:0',
-    'opacity:0.32',
+    'opacity:0.15',
     'mix-blend-mode:overlay',
     'image-rendering:pixelated',
   ].join(';');

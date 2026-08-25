@@ -17,6 +17,28 @@ const init = () => {
 
     dom.toolGrid.textContent = '';
 
+    // Sidebar kategori — klik scroll ke category group
+    const sidebarCat = document.getElementById('sidebar-categories');
+    if (sidebarCat) {
+        categories.forEach(cat => {
+            const a = document.createElement('a');
+            a.href = '#tools-header';
+            a.textContent = cat.name;
+            a.addEventListener('click', () => {
+                const groups = dom.toolGrid.querySelectorAll('.category-group');
+                const target = [...groups].find(g => g.querySelector('h2')?.textContent === cat.name);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById('sidebar')?.classList.remove('mobile-show');
+                document.getElementById('sidebar-overlay')?.classList.remove('show');
+            });
+            sidebarCat.appendChild(a);
+        });
+    }
+
+    // Sembunyikan skeleton loader setelah grid siap
+    const skeleton = document.getElementById('skeleton-loader');
+    if (skeleton) skeleton.classList.add('hidden');
+
     categories.forEach(category => {
         const categoryGroup = document.createElement('div');
         categoryGroup.className = 'category-group col-span-full';
@@ -120,6 +142,21 @@ const init = () => {
     initDitherEffect('#dither-canvas');
     initRandomLetterSwap('.rls-title');
     initScroll3D(document);
+
+    // Mobile sidebar toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const sidebarEl = document.getElementById('sidebar');
+    const overlayEl = document.getElementById('sidebar-overlay');
+    if (menuBtn && sidebarEl && overlayEl) {
+        menuBtn.addEventListener('click', () => {
+            sidebarEl.classList.toggle('mobile-show');
+            overlayEl.classList.toggle('show');
+        });
+        overlayEl.addEventListener('click', () => {
+            sidebarEl.classList.remove('mobile-show');
+            overlayEl.classList.remove('show');
+        });
+    }
 
     console.log('Please share our tool and share the love!');
 };

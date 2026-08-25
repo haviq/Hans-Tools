@@ -464,6 +464,15 @@ details[open]>summary .icon {
   color: transparent;
 }
 
+/* Dark overlay on top of dither to keep components readable */
+#dither-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(2, 6, 23, 0.65);
+}
+
 /* Dither overlay container */
 #dither-canvas {
   position: fixed;
@@ -479,4 +488,67 @@ details[open]>summary .icon {
 #app {
   position: relative;
   z-index: 1;
+}
+
+/* Sidebar */
+#sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #1e3a5f transparent;
+}
+#sidebar-categories a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+#sidebar-categories a:hover {
+  background: rgba(56, 189, 248, 0.08);
+  color: #e2e8f0;
+}
+#sidebar-categories a.active {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+}
+
+/* Main content with sidebar */
+#sidebar + #app #grid-view {
+  transition: margin-left 0.2s;
+}
+
+@media (min-width: 1024px) {
+  #app {
+    margin-left: 14rem;
+  }
+}
+
+/* Mobile sidebar toggle */
+#sidebar-overlay.show {
+  display: block;
+}
+#sidebar.mobile-show {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 4rem;
+  z-index: 30;
+  width: 16rem;
+  height: calc(100vh - 4rem);
+  background: rgba(2, 6, 23, 0.95);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(59, 130, 246, 0.1);
+  overflow-y: auto;
+}
+
+/* Skeleton pulse */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
