@@ -11,6 +11,12 @@ export const categories = [
             { id: 'password-generator', name: 'Password Generator', icon: 'key', subtitle: 'Buat password acak aman.' },
             { id: 'image-to-base64', name: 'Image to Base64', icon: 'file-image', subtitle: 'Konversi gambar ke base64.' },
             { id: 'csv-json', name: 'CSV/JSON Converter', icon: 'table', subtitle: 'Konversi antara CSV dan JSON.' },
+            { id: 'crop-image', name: 'Crop Gambar', icon: 'crop', subtitle: 'Potong bagian gambar.' },
+            { id: 'zip-creator', name: 'Buat ZIP', icon: 'archive', subtitle: 'Kompres file ke ZIP.' },
+            { id: 'markdown-preview', name: 'Markdown Preview', icon: 'file-text', subtitle: 'Render markdown ke HTML.' },
+            { id: 'uuid-generator', name: 'UUID Generator', icon: 'hash', subtitle: 'Buat UUID v4 acak.' },
+            { id: 'color-converter', name: 'Color Converter', icon: 'palette', subtitle: 'Konversi HEX/RGB/HSL.' },
+            { id: 'csv-table', name: 'CSV to Table', icon: 'table-2', subtitle: 'Render CSV sebagai tabel.' },
         ]
     },
     {

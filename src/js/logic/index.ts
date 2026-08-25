@@ -61,6 +61,12 @@ import { convertFile } from './converter.js';
 import { setupPdfViewer } from './pdf-viewer.js';
 import { optimizeImage } from './image-optimizer.js';
 import { generateQr } from './qr-generator.js';
+import { cropImage } from './crop-image.js';
+import { createZip } from './zip-creator.js';
+import { renderMarkdown, setupMarkdownPreview } from './markdown-preview.js';
+import { generateUuid } from './uuid-generator.js';
+import { convertColor } from './color-converter.js';
+import { csvToTable } from './csv-table.js';
 import { generateHash } from './hash-generator.js';
 import { setupBase64Tools } from './base64-tools.js';
 import { setupJsonFormatter } from './json-formatter.js';
@@ -139,4 +145,10 @@ export const toolLogic = {
     'password-generator': generatePassword,
     'image-to-base64': imageToBase64,
     'csv-json': { setup: setupCsvJson },
+    'crop-image': cropImage,
+    'zip-creator': createZip,
+    'markdown-preview': { process: renderMarkdown, setup: setupMarkdownPreview },
+    'uuid-generator': generateUuid,
+    'color-converter': convertColor,
+    'csv-table': csvToTable,
 };

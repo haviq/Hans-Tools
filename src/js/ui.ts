@@ -262,6 +262,62 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'crop-image': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Crop Gambar</h2>
+        <p class="mb-6 text-gray-400">Potong bagian gambar dengan koordinat.</p>
+        <div class="space-y-4">
+            <input id="crop-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <label class="block text-sm text-gray-300">X <input id="crop-x" type="number" value="0" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                <label class="block text-sm text-gray-300">Y <input id="crop-y" type="number" value="0" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                <label class="block text-sm text-gray-300">Lebar <input id="crop-w" type="number" value="200" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                <label class="block text-sm text-gray-300">Tinggi <input id="crop-h" type="number" value="200" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Crop Gambar</button>
+        </div>
+    `,
+    'zip-creator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Buat ZIP</h2>
+        <p class="mb-6 text-gray-400">Kompres beberapa file menjadi satu arsip ZIP.</p>
+        <input id="zip-input" type="file" multiple class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+        <button id="process-btn" class="btn-gradient w-full mt-6">Buat ZIP</button>
+    `,
+    'markdown-preview': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Markdown Preview</h2>
+        <p class="mb-6 text-gray-400">Tulis markdown dan lihat hasil HTML di bawah.</p>
+        <textarea id="mdp-input" rows="8" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="# Judul"></textarea>
+        <div class="grid grid-cols-2 gap-3 mt-4">
+            <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Render</button>
+            <button id="mdp-download" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Download .md</button>
+        </div>
+        <div id="mdp-output" class="mt-4 p-4 bg-slate-900 border border-slate-700 rounded-lg text-slate-300 max-w-none"></div>
+    `,
+    'uuid-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">UUID Generator</h2>
+        <p class="mb-6 text-gray-400">Buat UUID v4 acak dalam jumlah banyak.</p>
+        <label class="block text-sm font-medium text-gray-300 mb-2">Jumlah: <input id="uuid-count" type="number" min="1" max="50" value="5" class="w-24 bg-gray-700 border border-gray-600 text-white rounded-lg p-2 ml-2"></label>
+        <button id="process-btn" class="btn-gradient w-full mt-4">Generate UUID</button>
+        <textarea id="uuid-output" rows="8" readonly class="w-full mt-4 bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+    `,
+    'color-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Color Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi warna dari HEX ke RGB dan HSL.</p>
+        <div class="space-y-4">
+            <label class="block text-sm font-medium text-gray-300">HEX</label>
+            <input id="color-hex" type="text" value="#3366ff" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <textarea id="color-output" rows="4" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
+    'csv-table': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">CSV to Table</h2>
+        <p class="mb-6 text-gray-400">Render teks CSV sebagai tabel HTML.</p>
+        <div class="space-y-4">
+            <textarea id="csvt-input" rows="8" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="nama,umur,kota"></textarea>
+            <button id="process-btn" class="btn-gradient w-full">Render Table</button>
+            <div id="csvt-output" class="overflow-x-auto"></div>
+        </div>
+    `,
     'qr-generator': () => `
         <h2 class="text-2xl font-bold text-white mb-4">QR Code Generator</h2>
         <p class="mb-6 text-gray-400">Buat QR code dari teks atau link, langsung di browser.</p>
