@@ -1,6 +1,19 @@
 // This file centralizes the definition of all available tools, organized by category.
 export const categories = [
-        {
+    {
+        name: 'Utility Tools',
+        tools: [
+            { id: 'qr-generator', name: 'QR Code', icon: 'qr-code', subtitle: 'Buat QR code dari teks/link.' },
+            { id: 'hash-generator', name: 'Hash Generator', icon: 'shield-check', subtitle: 'Hitung MD5/SHA-1/SHA-256.' },
+            { id: 'base64-tools', name: 'Base64 Tools', icon: 'code-2', subtitle: 'Encode/decode base64.' },
+            { id: 'json-formatter', name: 'JSON Formatter', icon: 'braces', subtitle: 'Format & minify JSON.' },
+            { id: 'text-diff', name: 'Text Diff', icon: 'diff', subtitle: 'Bandingkan dua teks.' },
+            { id: 'password-generator', name: 'Password Generator', icon: 'key', subtitle: 'Buat password acak aman.' },
+            { id: 'image-to-base64', name: 'Image to Base64', icon: 'file-image', subtitle: 'Konversi gambar ke base64.' },
+            { id: 'csv-json', name: 'CSV/JSON Converter', icon: 'table', subtitle: 'Konversi antara CSV dan JSON.' },
+        ]
+    },
+    {
         name: 'Tools Tambahan',
         tools: [
             { id: 'ocr', name: 'OCR Image', icon: 'scan-text', subtitle: 'Ekstrak teks dari gambar/foto via Tesseract.' },

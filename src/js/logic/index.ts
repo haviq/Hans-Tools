@@ -60,6 +60,14 @@ import { setupMarkdownEditor, downloadMarkdown } from './markdown-editor.js';
 import { convertFile } from './converter.js';
 import { setupPdfViewer } from './pdf-viewer.js';
 import { optimizeImage } from './image-optimizer.js';
+import { generateQr } from './qr-generator.js';
+import { generateHash } from './hash-generator.js';
+import { setupBase64Tools } from './base64-tools.js';
+import { setupJsonFormatter } from './json-formatter.js';
+import { runTextDiff } from './text-diff.js';
+import { generatePassword } from './password-generator.js';
+import { imageToBase64 } from './image-to-base64.js';
+import { setupCsvJson } from './csv-json.js';
 
 export const toolLogic = {
     merge: { process: merge, setup: setupMergeTool },
@@ -123,4 +131,12 @@ export const toolLogic = {
     'converter': convertFile,
     'pdf-viewer': { setup: setupPdfViewer },
     'image-optimizer': optimizeImage,
+    'qr-generator': generateQr,
+    'hash-generator': generateHash,
+    'base64-tools': { setup: setupBase64Tools },
+    'json-formatter': { setup: setupJsonFormatter },
+    'text-diff': runTextDiff,
+    'password-generator': generatePassword,
+    'image-to-base64': imageToBase64,
+    'csv-json': { setup: setupCsvJson },
 };

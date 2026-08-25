@@ -262,6 +262,100 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'qr-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">QR Code Generator</h2>
+        <p class="mb-6 text-gray-400">Buat QR code dari teks atau link, langsung di browser.</p>
+        <div class="space-y-4">
+            <input id="qr-text" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" placeholder="Masukkan teks atau URL...">
+            <button id="process-btn" class="btn-gradient w-full">Buat QR Code</button>
+            <div id="qr-output" class="flex justify-center p-4 bg-white rounded-xl"></div>
+            <a id="qr-download" class="hidden btn bg-sky-600 hover:bg-sky-700 text-white font-semibold px-4 py-2 rounded-lg text-center block">Download QR</a>
+        </div>
+    `,
+    'hash-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Hash Generator</h2>
+        <p class="mb-6 text-gray-400">Hitung hash MD5, SHA-1, SHA-256 dari teks.</p>
+        <div class="space-y-4">
+            <textarea id="hash-input" rows="4" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="Teks yang mau di-hash..."></textarea>
+            <select id="hash-algo" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="SHA-256">SHA-256</option>
+                <option value="SHA-1">SHA-1</option>
+                <option value="MD5">MD5</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Generate Hash</button>
+            <textarea id="hash-output" rows="2" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5" placeholder="Hasil hash..."></textarea>
+        </div>
+    `,
+    'base64-tools': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Base64 Tools</h2>
+        <p class="mb-6 text-gray-400">Encode atau decode teks Base64.</p>
+        <div class="space-y-4">
+            <textarea id="b64-input" rows="4" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="Teks / Base64..."></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="b64-encode" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Encode</button>
+                <button id="b64-decode" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Decode</button>
+            </div>
+            <textarea id="b64-output" rows="4" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5" placeholder="Hasil..."></textarea>
+        </div>
+    `,
+    'json-formatter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">JSON Formatter</h2>
+        <p class="mb-6 text-gray-400">Format dan minify JSON dengan rapi.</p>
+        <div class="space-y-4">
+            <textarea id="json-input" rows="8" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Tempel JSON..."></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="json-format" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Format</button>
+                <button id="json-minify" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Minify</button>
+            </div>
+            <textarea id="json-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Hasil..."></textarea>
+        </div>
+    `,
+    'text-diff': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Text Diff</h2>
+        <p class="mb-6 text-gray-400">Bandingkan dua teks dan lihat perbedaannya.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <textarea id="diff-a" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Teks A..."></textarea>
+            <textarea id="diff-b" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Teks B..."></textarea>
+        </div>
+        <button id="process-btn" class="btn-gradient w-full mt-6">Bandingkan</button>
+        <textarea id="diff-output" rows="8" readonly class="w-full mt-4 bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Hasil diff..."></textarea>
+    `,
+    'password-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Password Generator</h2>
+        <p class="mb-6 text-gray-400">Buat password acak yang kuat dan aman.</p>
+        <div class="space-y-4">
+            <label class="block text-sm font-medium text-gray-300">Panjang: <input id="pw-length" type="number" min="4" max="128" value="16" class="w-24 bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+            <div class="space-y-2 text-sm text-gray-300">
+                <label class="flex items-center gap-2"><input type="checkbox" id="pw-upper" checked class="w-4 h-4"> Huruf besar (A-Z)</label>
+                <label class="flex items-center gap-2"><input type="checkbox" id="pw-lower" checked class="w-4 h-4"> Huruf kecil (a-z)</label>
+                <label class="flex items-center gap-2"><input type="checkbox" id="pw-digits" checked class="w-4 h-4"> Angka (0-9)</label>
+                <label class="flex items-center gap-2"><input type="checkbox" id="pw-symbols" checked class="w-4 h-4"> Simbol (!@#$...)</label>
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Generate Password</button>
+            <input id="pw-output" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5">
+        </div>
+    `,
+    'image-to-base64': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Image to Base64</h2>
+        <p class="mb-6 text-gray-400">Konversi gambar menjadi string Base64.</p>
+        <div class="space-y-4">
+            <input id="imgb64-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <textarea id="imgb64-output" rows="6" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-xs" placeholder="Hasil base64..."></textarea>
+        </div>
+    `,
+    'csv-json': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">CSV / JSON Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi antara CSV dan JSON.</p>
+        <div class="space-y-4">
+            <textarea id="csv-input" rows="8" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Tempel CSV atau JSON..."></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="csv-to-json" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">CSV → JSON</button>
+                <button id="json-to-csv" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">JSON → CSV</button>
+            </div>
+            <textarea id="csv-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Hasil..."></textarea>
+        </div>
+    `,
     ocr: () => `
         <h2 class="text-2xl font-bold text-white mb-4">OCR Gambar</h2>
         <p class="mb-6 text-gray-400">Ekstrak teks dari gambar/foto menggunakan Tesseract OCR di browser.</p>
