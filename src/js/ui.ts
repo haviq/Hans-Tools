@@ -262,6 +262,109 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    ocr: () => `
+        <h2 class="text-2xl font-bold text-white mb-4">OCR Gambar</h2>
+        <p class="mb-6 text-gray-400">Ekstrak teks dari gambar/foto menggunakan Tesseract OCR di browser.</p>
+        <div id="drop-zone" class="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer bg-gray-900 hover:bg-gray-700 transition-colors duration-300">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <i data-lucide="scan-text" class="w-10 h-10 mb-3 text-gray-400"></i>
+                <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Pilih gambar</span> atau drag and drop</p>
+            </div>
+            <input id="ocr-file-input" type="file" accept="image/*" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="ocr-lang" class="block mb-2 text-sm font-medium text-gray-300">Bahasa</label>
+                <select id="ocr-lang" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                    <option value="eng">English</option>
+                    <option value="ind">Indonesia</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button id="process-btn" class="btn-gradient w-full">Mulai OCR</button>
+            </div>
+        </div>
+        <textarea id="ocr-result" rows="12" class="mt-4 w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono" placeholder="Hasil OCR akan tampil di sini..."></textarea>
+    `,
+    'markdown-editor': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Markdown Editor</h2>
+        <p class="mb-6 text-gray-400">Tulis catatan Markdown lalu unduh sebagai .md.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <textarea id="md-src" rows="18" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono" placeholder="Tulis Markdown di sini..."></textarea>
+            <div id="md-preview" class="w-full min-h-[18rem] bg-gray-900 border border-gray-600 rounded-lg p-2.5 overflow-auto"></div>
+        </div>
+        <button id="process-btn" class="btn-gradient w-full mt-6">Unduh sebagai .md</button>
+    `,
+    converter: () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Converter File</h2>
+        <p class="mb-6 text-gray-400">Konversi media lokal via FFmpeg.wasm. Proses di browser, tidak ada upload.</p>
+        <div id="drop-zone" class="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer bg-gray-900 hover:bg-gray-700 transition-colors duration-300">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <i data-lucide="refresh-cw" class="w-10 h-10 mb-3 text-gray-400"></i>
+                <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Pilih file</span> atau drag and drop</p>
+            </div>
+            <input id="converter-file-input" type="file" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="converter-format" class="block mb-2 text-sm font-medium text-gray-300">Format Tujuan</label>
+                <select id="converter-format" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                    <option value="mp4">MP4</option>
+                    <option value="webm">WebM</option>
+                    <option value="mov">MOV</option>
+                    <option value="mp3">MP3</option>
+                    <option value="wav">WAV</option>
+                    <option value="ogg">OGG</option>
+                    <option value="jpg">JPG</option>
+                    <option value="png">PNG</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            </div>
+        </div>
+    `,
+    'pdf-viewer': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">PDF Viewer</h2>
+        <p class="mb-6 text-gray-400">Buka dan lihat PDF langsung di browser.</p>
+        <div id="drop-zone" class="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer bg-gray-900 hover:bg-gray-700 transition-colors duration-300">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <i data-lucide="book-open" class="w-10 h-10 mb-3 text-gray-400"></i>
+                <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Pilih PDF</span> atau drag and drop</p>
+            </div>
+            <input id="pdf-viewer-input" type="file" accept="application/pdf" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
+        </div>
+        <div class="mt-4 flex items-center justify-center gap-4 p-4 bg-gray-900 rounded-lg border border-gray-700">
+            <button id="pdf-viewer-prev" class="px-4 py-2 rounded-lg bg-gray-700 text-white text-sm font-semibold">← Sebelumnya</button>
+            <span id="pdf-viewer-page" class="text-sm text-white">0 / 0</span>
+            <button id="pdf-viewer-next" class="px-4 py-2 rounded-lg bg-gray-700 text-white text-sm font-semibold">Berikutnya →</button>
+        </div>
+        <div class="mt-4 flex justify-center bg-gray-900 rounded-xl p-4">
+            <canvas id="pdf-viewer-canvas" class="max-w-full" style="max-width:100%"></canvas>
+        </div>
+    `,
+    'image-optimizer': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Optimasi Gambar</h2>
+        <p class="mb-6 text-gray-400">Resize dan kompres gambar langsung di browser.</p>
+        <div id="drop-zone" class="relative flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-600 rounded-xl cursor-pointer bg-gray-900 hover:bg-gray-700 transition-colors duration-300">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <i data-lucide="image-down" class="w-10 h-10 mb-3 text-gray-400"></i>
+                <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Pilih gambar</span> atau drag and drop</p>
+            </div>
+            <input id="opt-file-input" type="file" accept="image/*" class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
+        </div>
+        <div class="mt-4 grid grid-cols-2 gap-4">
+            <div>
+                <label for="opt-quality" class="block mb-2 text-sm font-medium text-gray-300">Kualitas (0-1)</label>
+                <input id="opt-quality" type="number" min="0.1" max="1" step="0.05" value="0.8" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            </div>
+            <div>
+                <label for="opt-width" class="block mb-2 text-sm font-medium text-gray-300">Max Lebar px</label>
+                <input id="opt-width" type="number" min="100" placeholder="Simpan resolusi asli" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            </div>
+        </div>
+        <button id="process-btn" class="btn-gradient w-full mt-6">Optimasi & Unduh</button>
+    `,
     merge: () => `
     <h2 class="text-2xl font-bold text-white mb-4">Merge PDFs</h2>
     <p class="mb-6 text-gray-400">Combine whole files, or select specific pages to merge into a new document.</p>

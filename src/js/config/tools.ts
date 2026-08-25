@@ -1,6 +1,16 @@
 // This file centralizes the definition of all available tools, organized by category.
 export const categories = [
         {
+        name: 'Tools Tambahan',
+        tools: [
+            { id: 'ocr', name: 'OCR Image', icon: 'scan-text', subtitle: 'Ekstrak teks dari gambar/foto via Tesseract.' },
+            { id: 'markdown-editor', name: 'Markdown Editor', icon: 'file-text', subtitle: 'Tulis dan pratinjau Markdown dengan CodeMirror.' },
+            { id: 'converter', name: 'File Converter', icon: 'refresh-cw', subtitle: 'Konversi media lokal via FFmpeg.wasm.' },
+            { id: 'pdf-viewer', name: 'PDF Viewer', icon: 'book-open', subtitle: 'Lihat PDF langsung di browser.' },
+            { id: 'image-optimizer', name: 'Optimasi Gambar', icon: 'image-down', subtitle: 'Resize dan kompres gambar.' },
+        ]
+    },
+    {
         name: 'Popular Tools',
         tools: [
             { id: 'merge', name: 'Merge PDF', icon: 'combine', subtitle: 'Combine multiple PDFs into one file.' },
