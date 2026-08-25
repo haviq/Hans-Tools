@@ -114,33 +114,4 @@ export const categories = [
             { id: 'change-permissions', name: 'Change Permissions', icon: 'shield-check', subtitle: 'Set or change user permissions on a PDF.' },
         ]
     },
-    {
-        name: 'Web Tools',
-        tools: [
-            { id: 'photopea', name: 'Photopea', icon: 'palette', subtitle: 'Edit gambar seperti Photoshop di browser.', url: 'https://www.photopea.com' },
-            { id: 'draw-io', name: 'draw.io', icon: 'workflow', subtitle: 'Diagram dan flowchart online.', url: 'https://app.diagrams.net' },
-            { id: 'excalidraw', name: 'Excalidraw', icon: 'pencil', subtitle: 'Whiteboard tangan-bebas kolaboratif.', url: 'https://excalidraw.com' },
-            { id: 'audacity-web', name: 'Audacity Web', icon: 'music', subtitle: 'Edit audio di browser (resmi).', url: 'https://www.audacityteam.org/webapp' },
-            { id: 'collabora', name: 'Collabora Online', icon: 'file-text', subtitle: 'Edit Word/Excel/PPT dari browser.', url: 'https://www.collaboraoffice.com' },
-            { id: 'keweb', name: 'KeeWeb', icon: 'key', subtitle: 'Password manager di browser.', url: 'https://app.kee.pm' },
-        ]
-    },
-    {
-        name: 'Layanan & Self-Host',
-        tools: [
-            { id: 'open-webui', name: 'Open WebUI', icon: 'bot', subtitle: 'Chat AI lokal (pakai Ollama di VPS).', url: 'https://github.com/open-webui/open-webui' },
-            { id: 'ollama', name: 'Ollama', icon: 'cpu', subtitle: 'Jalankan model AI lokal.', url: 'https://ollama.com' },
-            { id: 'stirling-pdf', name: 'Stirling-PDF', icon: 'file-stack', subtitle: '50+ tools PDF self-host.', url: 'https://github.com/Stirling-Tools/Stirling-PDF' },
-            { id: 'yt-dlp', name: 'yt-dlp / Cobalt', icon: 'download', subtitle: 'Download video dari browser.', url: 'https://cobalt.tools' },
-            { id: 'rustdesk', name: 'RustDesk Web', icon: 'monitor', subtitle: 'Remote desktop dari browser.', url: 'https://rustdesk.com' },
-            { id: 'code-server', name: 'code-server', icon: 'code', subtitle: 'VS Code penuh di browser.', url: 'https://github.com/coder/code-server' },
-            { id: 'jupyter', name: 'Jupyter', icon: 'notebook', subtitle: 'Coding Python interaktif di browser.', url: 'https://jupyter.org' },
-            { id: 'n8n', name: 'n8n', icon: 'workflow', subtitle: 'Automatisasi workflow self-host.', url: 'https://n8n.io' },
-            { id: 'uptime-kuma', name: 'Uptime Kuma', icon: 'activity', subtitle: 'Monitoring status website.', url: 'https://github.com/louislam/uptime-kuma' },
-            { id: 'jellyfin', name: 'Jellyfin', icon: 'film', subtitle: 'Streaming film & musik sendiri.', url: 'https://jellyfin.org' },
-            { id: 'immich', name: 'Immich', icon: 'images', subtitle: 'Backup foto ala Google Photos self-host.', url: 'https://immich.app' },
-            { id: 'nextcloud', name: 'Nextcloud', icon: 'cloud', subtitle: 'Cloud storage + office online.', url: 'https://nextcloud.com' },
-            { id: 'gitea', name: 'Gitea', icon: 'git-branch', subtitle: 'Git server sendiri.', url: 'https://gitea.io' },
-        ]
-    },
 ];
