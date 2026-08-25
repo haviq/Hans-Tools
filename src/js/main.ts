@@ -54,6 +54,8 @@ const init = () => {
             const toolCard = document.createElement('div');
             toolCard.className = 'tool-card rounded-2xl bg-slate-900/60 border border-slate-800 p-4 cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200 hover:border-sky-500/40 hover:-translate-y-1';
             toolCard.dataset.toolId = tool.id; 
+            // @ts-expect-error dynamic url
+            if (tool.url) toolCard.dataset.url = tool.url;
 
             const icon = document.createElement('i');
             icon.className = 'w-10 h-10 mb-3 text-sky-400';
@@ -107,8 +109,13 @@ const init = () => {
 
     dom.toolGrid.addEventListener('click', (e) => {
         // @ts-expect-error TS(2339) FIXME: Property 'closest' does not exist on type 'EventTa... Remove this comment to see the full error message
-        const card = e.target.closest('.tool-card');
+        const card = e.target.closest('.tool-card') as HTMLElement | null;
         if (card) {
+            const url = card.dataset.url;
+            if (url) {
+                window.open(url, '_blank', 'noopener');
+                return;
+            }
             const toolId = card.dataset.toolId;
             setupToolInterface(toolId);
         }
