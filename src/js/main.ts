@@ -5,6 +5,9 @@ import { createIcons, icons } from 'lucide';
 import * as pdfjsLib from 'pdfjs-dist';
 import "../css/styles.css";
 
+import { initRandomLetterSwap } from './randomLetterSwap.js';
+import { initDitherEffect } from './ditherEffect.js';
+
 const init = () => {
     pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
         'pdfjs-dist/build/pdf.worker.min.mjs',
