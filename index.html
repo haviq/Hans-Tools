@@ -13,9 +13,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="/src/css/styles.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
 </head>
 
 <body class="antialiased bg-slate-950 text-slate-200">
+<div id="vanta-bg" class="fixed inset-0 z-[-1]"></div>
+
     <div id="dither-canvas"></div>
     <div id="dither-overlay"></div>
 
@@ -184,5 +188,26 @@
     </div>
 
     <script type="module" src="/src/js/main.ts"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    if (typeof VANTA !== 'undefined') {
+        VANTA.GLOBE({
+          el: "#vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0x38bdf8,
+          color2: 0x1e3a8a,
+          size: 1.1,
+          backgroundColor: 0x020617, showLines: true
+        });
+    }
+});
+</script>
 </body>
 </html>
