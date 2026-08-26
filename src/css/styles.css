@@ -623,3 +623,27 @@ body {
 #hero-section h1 {
     text-shadow: 0 0 40px rgba(56, 189, 248, 0.25);
 }
+
+
+/* Chip filter kategori */
+.chip-filter {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.chip-filter:hover {
+    color: #e2e8f0;
+    border-color: rgba(56, 189, 248, 0.5);
+}
+.chip-filter.active {
+    color: #fff;
+    background: linear-gradient(135deg, #0ea5e9, #2563eb);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
+}

@@ -84,6 +84,46 @@ const init = () => {
         dom.toolGrid.appendChild(categoryGroup);
     });
 
+    // ===== Filter kategori agar tidak cape scroll =====
+    const toolsHeader = document.getElementById('tools-header');
+    const filterWrap = document.createElement('div');
+    filterWrap.className = 'flex flex-wrap justify-center gap-2 mt-4';
+    filterWrap.id = 'category-chips';
+    const makeChip = (name: string, active = false) => {
+        const chip = document.createElement('button');
+        chip.textContent = name;
+        chip.className = 'chip-filter' + (active ? ' active' : '');
+        chip.dataset.cat = name;
+        return chip;
+    };
+    filterWrap.appendChild(makeChip('Semua', true));
+    categories.forEach(cat => filterWrap.appendChild(makeChip(cat.name)));
+    if (toolsHeader) toolsHeader.appendChild(filterWrap);
+
+    const applyFilter = (catName: string) => {
+        filterWrap.querySelectorAll('.chip-filter').forEach(c => c.classList.toggle('active', (c as HTMLElement).dataset.cat === catName));
+        dom.toolGrid.querySelectorAll('.category-group').forEach(group => {
+            const titleEl = group.querySelector('h2');
+            const name = titleEl ? titleEl.textContent || '' : '';
+            group.classList.toggle('hidden', catName !== 'Semua' && name !== catName);
+        });
+    };
+    filterWrap.addEventListener('click', (e) => {
+        const target = (e.target as HTMLElement).closest('.chip-filter') as HTMLElement | null;
+        if (target && target.dataset.cat) applyFilter(target.dataset.cat);
+    });
+    if (sidebarCat) {
+        sidebarCat.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                const name = a.textContent || '';
+                applyFilter(name);
+                const groups = dom.toolGrid.querySelectorAll('.category-group');
+                const target = [...groups].find(g => g.querySelector('h2')?.textContent === name);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }
+
     const searchBar = document.getElementById('search-bar');
     const categoryGroups = dom.toolGrid.querySelectorAll('.category-group');
 
