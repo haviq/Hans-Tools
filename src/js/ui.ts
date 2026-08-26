@@ -262,6 +262,87 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'image-to-ascii-art': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Image to ASCII Art</h2>
+        <p class="mb-6 text-gray-400">Ubah gambar menjadi teks ASCII.</p>
+        <div class="space-y-4">
+            <input id="ascii-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <label class="block text-sm text-gray-300">Karakter</label>
+            <select id="ascii-chars" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="@%#*+=-:. ">Bawaan</option>
+                <option value="█▓▒░ ">Blok</option>
+                <option value="10">Biner</option>
+            </select>
+            <label class="block text-sm text-gray-300">Lebar (20-200)</label>
+            <input id="ascii-width" type="number" min="20" max="200" value="80" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2">
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Konversi</button>
+                <button id="ascii-copy" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Salin</button>
+            </div>
+            <textarea id="ascii-output" rows="10" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-xs"></textarea>
+        </div>
+    `,
+    'qr-scanner': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">QR Scanner</h2>
+        <p class="mb-6 text-gray-400">Scan QR code menggunakan kamera (BarcodeDetector API).</p>
+        <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Mulai Scan</button>
+                <button id="qr-stop" class="btn bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-lg">Stop</button>
+            </div>
+            <video id="qr-video" class="w-full max-w-sm mx-auto rounded-lg bg-slate-900 border border-slate-700"></video>
+            <input id="qr-scan-result" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5" placeholder="Hasil scan...">
+        </div>
+    `,
+    'regex-tester': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Regex Tester</h2>
+        <p class="mb-6 text-gray-400">Tes pola regex langsung di browser.</p>
+        <div class="space-y-4">
+            <label class="block text-sm text-gray-300">Pattern</label>
+            <input id="regex-pattern" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 font-mono" placeholder="[A-Z]\\w+">
+            <label class="block text-sm text-gray-300">Flags</label>
+            <input id="regex-flags" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 font-mono" value="gi" placeholder="gi">
+            <label class="block text-sm text-gray-300">Teks</label>
+            <textarea id="regex-text" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="Teks yang mau diuji..."></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Test</button>
+                <button id="regex-copy" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Salin Hasil</button>
+            </div>
+            <div id="regex-output" class="p-4 bg-slate-900 border border-slate-700 rounded-lg text-slate-300 text-sm font-mono"></div>
+        </div>
+    `,
+    'timestamp-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Timestamp Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi Unix timestamp ke tanggal & sebaliknya.</p>
+        <div class="space-y-4">
+            <select id="ts-mode" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="unix">Unix → Tanggal</option>
+                <option value="date">Tanggal → Unix</option>
+            </select>
+            <input id="ts-input" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 font-mono" placeholder="1758900000 atau 2026-08-26T08:00:00Z">
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <textarea id="ts-output" rows="5" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
+    'password-strength': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Password Strength</h2>
+        <p class="mb-6 text-gray-400">Cek kekuatan password Anda.</p>
+        <div class="space-y-4">
+            <input id="ps-input" type="password" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" placeholder="Masukkan password...">
+            <button id="process-btn" class="btn-gradient w-full">Cek</button>
+            <div id="ps-output" class="p-4 bg-slate-900 border border-slate-700 rounded-lg text-slate-300 text-sm"></div>
+        </div>
+    `,
+    'color-picker-palette': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Color Picker & Palette</h2>
+        <p class="mb-6 text-gray-400">Generate palette dari warna dasar.</p>
+        <div class="space-y-4">
+            <label class="block text-sm text-gray-300">Warna (HEX)</label>
+            <input id="cp-base" type="color" value="#3366ff" class="w-full h-12 p-1 rounded-lg bg-gray-700 border border-gray-600 cursor-pointer">
+            <button id="process-btn" class="btn-gradient w-full">Generate Palette</button>
+            <div id="cp-output" class="p-4 bg-slate-900 border border-slate-700 rounded-lg"></div>
+        </div>
+    `,
     'image-filters': () => `
         <h2 class="text-2xl font-bold text-white mb-4">Image Filters</h2>
         <p class="mb-6 text-gray-400">Terapkan filter ke gambar langsung di browser.</p>

@@ -35,6 +35,12 @@ export const categories = [
             { id: 'markdown-table', name: 'Markdown Table', icon: 'table', subtitle: 'Generator tabel markdown.' },
             { id: 'csv-editor', name: 'CSV Editor', icon: 'table-2', subtitle: 'Lihat dan edit CSV sebagai tabel.' },
             { id: 'pdf-converter', name: 'PDF Converter', icon: 'file-cog', subtitle: 'Kompres/rotasi PDF via pdf-lib.' },
+            { id: 'image-to-ascii-art', name: 'Ascii Art', icon: 'image', subtitle: 'Ubah gambar jadi teks ASCII.' },
+            { id: 'qr-scanner', name: 'QR Scanner', icon: 'scan-line', subtitle: 'Scan QR pakai kamera.' },
+            { id: 'regex-tester', name: 'Regex Tester', icon: 'braces', subtitle: 'Tes pola regex langsung.' },
+            { id: 'timestamp-converter', name: 'Timestamp Converter', icon: 'clock', subtitle: 'Konversi unix ke tanggal & sebaliknya.' },
+            { id: 'password-strength', name: 'Password Strength', icon: 'shield-alert', subtitle: 'Cek kekuatan password.' },
+            { id: 'color-picker-palette', name: 'Color Picker & Palette', icon: 'palette', subtitle: 'Generate palette dari warna.' },
         ]
     },
     {

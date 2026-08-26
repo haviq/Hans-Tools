@@ -79,6 +79,12 @@ import { generateBarcode, setupBarcodeGenerator } from './barcode-generator.js';
 import { generateTable, setupMarkdownTable } from './markdown-table.js';
 import { parseCsvEditor, setupCsvEditor } from './csv-editor.js';
 import { pdfConverter } from './pdf-converter.js';
+import { imageToAscii, setupImageToAsciiArt } from './image-to-ascii-art.js';
+import { startQrScanner, setupQrScanner } from './qr-scanner.js';
+import { testRegex, setupRegexTester } from './regex-tester.js';
+import { convertTimestamp } from './timestamp-converter.js';
+import { checkPasswordStrength } from './password-strength.js';
+import { generatePalette } from './color-picker-palette.js';
 import { cropImage } from './crop-image.js';
 import { createZip } from './zip-creator.js';
 import { renderMarkdown, setupMarkdownPreview } from './markdown-preview.js';
@@ -187,4 +193,10 @@ export const toolLogic = {
     'markdown-table': { process: generateTable, setup: setupMarkdownTable },
     'csv-editor': { process: parseCsvEditor, setup: setupCsvEditor },
     'pdf-converter': pdfConverter,
+    'image-to-ascii-art': { process: imageToAscii, setup: setupImageToAsciiArt },
+    'qr-scanner': { process: startQrScanner, setup: setupQrScanner },
+    'regex-tester': { process: testRegex, setup: setupRegexTester },
+    'timestamp-converter': convertTimestamp,
+    'password-strength': checkPasswordStrength,
+    'color-picker-palette': generatePalette,
 };
