@@ -262,6 +262,92 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'timer-stopwatch': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Timer / Stopwatch</h2>
+        <p class="mb-6 text-gray-400">Stopwatch real-time di browser.</p>
+        <div class="py-8 text-center">
+            <div id="timer-display" class="text-5xl font-mono text-sky-300 font-bold mb-8">00:00:00</div>
+            <div class="flex justify-center gap-4">
+                <button id="timer-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold px-6 py-2 rounded-lg">Mulai</button>
+                <button id="timer-reset" class="btn bg-slate-600 hover:bg-slate-700 text-white font-semibold px-6 py-2 rounded-lg">Reset</button>
+            </div>
+        </div>
+    `,
+    'percentage-calculator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Kalkulator Persen</h2>
+        <p class="mb-6 text-gray-400">Hitung persentase, tambah/kurang persen, dan perubahan.</p>
+        <div class="space-y-4">
+            <select id="pct-mode" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="pct">A adalah berapa % dari B?</option>
+                <option value="add">A + B%</option>
+                <option value="sub">A - B%</option>
+                <option value="chg">% perubahan dari A ke B</option>
+            </select>
+            <div class="grid grid-cols-2 gap-3">
+                <input id="pct-a" type="number" placeholder="Nilai A" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <input id="pct-b" type="number" placeholder="Nilai B" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Hitung</button>
+            <p id="pct-output" class="text-center text-lg text-sky-300 font-semibold p-4 bg-slate-900 rounded-lg"></p>
+        </div>
+    `,
+    'lorem-ipsum': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Lorem Ipsum Generator</h2>
+        <p class="mb-6 text-gray-400">Hasilkan teks placeholder untuk desain dan layout.</p>
+        <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+                <select id="lorem-type" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                    <option value="paras">Paragraf</option>
+                    <option value="words">Kata</option>
+                </select>
+                <input id="lorem-count" type="number" min="1" max="50" value="3" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Generate</button>
+                <button id="lorem-copy" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Salin</button>
+            </div>
+            <textarea id="lorem-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5"></textarea>
+        </div>
+    `,
+    'text-to-speech': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Text to Speech</h2>
+        <p class="mb-6 text-gray-400">Bacakan teks dengan suara browser (id-ID).</p>
+        <div class="space-y-4">
+            <textarea id="tts-input" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="Teks yang mau dibacakan..."></textarea>
+            <select id="tts-rate" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="0.75">Lambat (0.75x)</option>
+                <option value="1" selected>Normal (1x)</option>
+                <option value="1.25">Cepat (1.25x)</option>
+            </select>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Bacakan</button>
+                <button id="tts-stop" class="btn bg-slate-600 hover:bg-slate-700 text-white font-semibold py-2 rounded-lg">Stop</button>
+            </div>
+        </div>
+    `,
+    'word-counter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Word Counter</h2>
+        <p class="mb-6 text-gray-400">Hitung kata, karakter, dan baris secara real-time.</p>
+        <div class="space-y-4">
+            <textarea id="word-input" rows="10" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="Tulis atau tempel teks di sini..."></textarea>
+            <p id="word-output" class="text-center text-lg text-sky-300 font-semibold p-4 bg-slate-900 rounded-lg"></p>
+        </div>
+    `,
+    'number-base': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Number Base Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi angka antar basis: desimal, biner, oktal, heksadesimal.</p>
+        <div class="space-y-4">
+            <input id="base-input" type="text" placeholder="Angka, misal 255" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            <select id="base-from" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="10">Desimal (basis 10)</option>
+                <option value="2">Biner (basis 2)</option>
+                <option value="8">Oktal (basis 8)</option>
+                <option value="16">Heksadesimal (basis 16)</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <textarea id="base-output" rows="5" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
     'image-compressor': () => `
         <h2 class="text-2xl font-bold text-white mb-4">Image Compressor</h2>
         <p class="mb-6 text-gray-400">Kompres dan resize gambar langsung di browser.</p>

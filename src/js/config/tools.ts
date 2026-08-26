@@ -23,6 +23,12 @@ export const categories = [
             { id: 'case-converter', name: 'Case Converter', icon: 'text-cursor', subtitle: 'Konversi teks UPPER/lower/Title/kebab.' },
             { id: 'unit-converter', name: 'Unit Converter', icon: 'ruler', subtitle: 'Konversi panjang, berat, suhu.' },
             { id: 'html-to-markdown', name: 'HTML to Markdown', icon: 'code', subtitle: 'Konversi HTML ke Markdown.' },
+            { id: 'timer-stopwatch', name: 'Timer / Stopwatch', icon: 'timer', subtitle: 'Stopwatch langsung di browser.' },
+            { id: 'percentage-calculator', name: 'Kalkulator Persen', icon: 'percent', subtitle: 'Hitung persentase, tambah/kurang %, % perubahan.' },
+            { id: 'lorem-ipsum', name: 'Lorem Ipsum', icon: 'type', subtitle: 'Generator teks placeholder.' },
+            { id: 'text-to-speech', name: 'Text to Speech', icon: 'audio-lines', subtitle: 'Baca teks dengan suara browser.' },
+            { id: 'word-counter', name: 'Word Counter', icon: 'align-left', subtitle: 'Hitung kata, karakter, baris.' },
+            { id: 'number-base', name: 'Number Base', icon: 'binary', subtitle: 'Konversi desimal/biner/oktal/heksa.' },
         ]
     },
     {

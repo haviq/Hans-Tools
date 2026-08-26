@@ -67,6 +67,12 @@ import { buildChart, setupChartMaker } from './chart-maker.js';
 import { convertCase } from './case-converter.js';
 import { convertUnit } from './unit-converter.js';
 import { htmlToMarkdown, setupHtmlToMarkdown } from './html-to-markdown.js';
+import { startStopTimer, resetTimer, setupTimerStopwatch } from './timer-stopwatch.js';
+import { calculatePercentage } from './percentage-calculator.js';
+import { generateLorem, setupLoremIpsum } from './lorem-ipsum.js';
+import { speakText, setupTextToSpeech } from './text-to-speech.js';
+import { countWords } from './word-counter.js';
+import { convertBase } from './number-base.js';
 import { cropImage } from './crop-image.js';
 import { createZip } from './zip-creator.js';
 import { renderMarkdown, setupMarkdownPreview } from './markdown-preview.js';
@@ -163,4 +169,10 @@ export const toolLogic = {
     'case-converter': convertCase,
     'unit-converter': convertUnit,
     'html-to-markdown': { process: htmlToMarkdown, setup: setupHtmlToMarkdown },
+    'timer-stopwatch': { setup: setupTimerStopwatch },
+    'percentage-calculator': calculatePercentage,
+    'lorem-ipsum': { process: generateLorem, setup: setupLoremIpsum },
+    'text-to-speech': { process: speakText, setup: setupTextToSpeech },
+    'word-counter': countWords,
+    'number-base': convertBase,
 };
