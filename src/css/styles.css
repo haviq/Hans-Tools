@@ -552,3 +552,25 @@ details[open]>summary .icon {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+
+/* Responsive polish: mobile & web */
+@media (max-width: 640px) {
+  #hero-section h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  #hero-section p {
+    font-size: 0.875rem;
+  }
+  #tool-grid {
+    gap: 0.75rem;
+  }
+  .tool-card {
+    padding: 0.9rem 0.75rem;
+  }
+}
+@media (min-width: 1024px) {
+  .tool-card {
+    min-height: 8rem;
+  }
+}

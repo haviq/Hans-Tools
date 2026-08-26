@@ -1,5 +1,5 @@
-const CACHE = 'hans-tools-v1';
-const PRECACHE = ['index.html', 'about.html', 'faq.html', 'contact.html', 'privacy.html', 'terms.html', './'];
+const CACHE = 'hans-tools-v2';
+const PRECACHE = ['index.html', './'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -24,15 +24,14 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== location.origin) return;
 
   event.respondWith(
-    caches.match(req).then((cached) => {
-      if (cached) return cached;
-      return fetch(req).then((res) => {
+    fetch(req)
+      .then((res) => {
         if (res && res.status === 200) {
           const clone = res.clone();
           caches.open(CACHE).then((cache) => cache.put(req, clone));
         }
         return res;
-      });
-    })
+      })
+      .catch(() => caches.match(req).then((cached) => cached || caches.match('index.html')))
   );
 });
