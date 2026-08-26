@@ -17,6 +17,12 @@ export const categories = [
             { id: 'uuid-generator', name: 'UUID Generator', icon: 'hash', subtitle: 'Buat UUID v4 acak.' },
             { id: 'color-converter', name: 'Color Converter', icon: 'palette', subtitle: 'Konversi HEX/RGB/HSL.' },
             { id: 'csv-table', name: 'CSV to Table', icon: 'table-2', subtitle: 'Render CSV sebagai tabel.' },
+            { id: 'image-compressor', name: 'Image Compressor', icon: 'image-down', subtitle: 'Kompres dan resize gambar.' },
+            { id: 'heic-converter', name: 'HEIC Converter', icon: 'image', subtitle: 'Konversi HEIC ke JPG/PNG.' },
+            { id: 'chart-maker', name: 'Chart Maker', icon: 'bar-chart', subtitle: 'Buat grafik batang/garis/pie.' },
+            { id: 'case-converter', name: 'Case Converter', icon: 'text-cursor', subtitle: 'Konversi teks UPPER/lower/Title/kebab.' },
+            { id: 'unit-converter', name: 'Unit Converter', icon: 'ruler', subtitle: 'Konversi panjang, berat, suhu.' },
+            { id: 'html-to-markdown', name: 'HTML to Markdown', icon: 'code', subtitle: 'Konversi HTML ke Markdown.' },
         ]
     },
     {

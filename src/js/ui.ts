@@ -262,6 +262,91 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'image-compressor': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Image Compressor</h2>
+        <p class="mb-6 text-gray-400">Kompres dan resize gambar langsung di browser.</p>
+        <div class="space-y-4">
+            <input id="cmp-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm text-gray-300">Kualitas (0.1-1.0) <input id="cmp-quality" type="number" min="0.1" max="1" step="0.1" value="0.7" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                <label class="block text-sm text-gray-300">Max Width px <input id="cmp-width" type="number" min="0" value="1920" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Kompres Gambar</button>
+        </div>
+    `,
+    'heic-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">HEIC Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi file HEIC ke JPG atau PNG.</p>
+        <div class="space-y-4">
+            <input id="heic-input" type="file" accept=".heic,.heif" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <select id="heic-format" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="image/jpeg">JPG</option>
+                <option value="image/png">PNG</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+        </div>
+    `,
+    'chart-maker': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Chart Maker</h2>
+        <p class="mb-6 text-gray-400">Buat grafik dari data sederhana.</p>
+        <div class="space-y-4">
+            <select id="chart-type" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="bar">Bar</option>
+                <option value="line">Line</option>
+                <option value="pie">Pie</option>
+            </select>
+            <textarea id="chart-labels" rows="2" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="Jan,Feb,Mar"></textarea>
+            <textarea id="chart-values" rows="2" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="10,20,30"></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Buat Chart</button>
+                <button id="chart-export" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Download PNG</button>
+            </div>
+            <canvas id="chart-canvas" class="bg-slate-900 border border-slate-700 rounded-lg p-2"></canvas>
+        </div>
+    `,
+    'case-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Case Converter</h2>
+        <p class="mb-6 text-gray-400">Ubah format huruf teks sesuai kebutuhan.</p>
+        <div class="space-y-4">
+            <textarea id="case-input" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="Teks di sini..."></textarea>
+            <select id="case-mode" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="upper">UPPERCASE</option>
+                <option value="lower">lowercase</option>
+                <option value="title">Title Case</option>
+                <option value="sentence">Sentence case</option>
+                <option value="camel">camelCase</option>
+                <option value="snake">snake_case</option>
+                <option value="kebab">kebab-case</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <textarea id="case-output" rows="6" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5"></textarea>
+        </div>
+    `,
+    'unit-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Unit Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi panjang, berat, suhu, dan data digital.</p>
+        <div class="space-y-4">
+            <input id="unit-value" type="number" value="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            <div class="grid grid-cols-2 gap-3">
+                <select id="unit-from" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"><option value="mm">mm</option><option value="cm">cm</option><option value="m" selected>m</option><option value="km">km</option><option value="in">in</option><option value="ft">ft</option><option value="mi">mi</option><option value="mg">mg</option><option value="g">g</option><option value="kg">kg</option><option value="ton">ton</option><option value="lb">lb</option><option value="oz">oz</option><option value="B">B</option><option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option><option value="TB">TB</option><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select>
+                <select id="unit-to" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"><option value="mm">mm</option><option value="cm">cm</option><option value="m">m</option><option value="km" selected>km</option><option value="in">in</option><option value="ft">ft</option><option value="mi">mi</option><option value="mg">mg</option><option value="g">g</option><option value="kg">kg</option><option value="ton">ton</option><option value="lb">lb</option><option value="oz">oz</option><option value="B">B</option><option value="KB">KB</option><option value="MB">MB</option><option value="GB">GB</option><option value="TB">TB</option><option value="C">°C</option><option value="F">°F</option><option value="K">K</option></select>
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <input id="unit-output" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5">
+        </div>
+    `,
+    'html-to-markdown': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">HTML to Markdown</h2>
+        <p class="mb-6 text-gray-400">Ubah HTML menjadi Markdown.</p>
+        <div class="space-y-4">
+            <textarea id="h2m-input" rows="8" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="<h1>Judul</h1>"></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Konversi</button>
+                <button id="h2m-copy" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Salin</button>
+            </div>
+            <textarea id="h2m-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
     'crop-image': () => `
         <h2 class="text-2xl font-bold text-white mb-4">Crop Gambar</h2>
         <p class="mb-6 text-gray-400">Potong bagian gambar dengan koordinat.</p>

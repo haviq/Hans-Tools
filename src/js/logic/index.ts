@@ -61,6 +61,12 @@ import { convertFile } from './converter.js';
 import { setupPdfViewer } from './pdf-viewer.js';
 import { optimizeImage } from './image-optimizer.js';
 import { generateQr } from './qr-generator.js';
+import { compressImage } from './image-compressor.js';
+import { convertHeic } from './heic-converter.js';
+import { buildChart, setupChartMaker } from './chart-maker.js';
+import { convertCase } from './case-converter.js';
+import { convertUnit } from './unit-converter.js';
+import { htmlToMarkdown, setupHtmlToMarkdown } from './html-to-markdown.js';
 import { cropImage } from './crop-image.js';
 import { createZip } from './zip-creator.js';
 import { renderMarkdown, setupMarkdownPreview } from './markdown-preview.js';
@@ -151,4 +157,10 @@ export const toolLogic = {
     'uuid-generator': generateUuid,
     'color-converter': convertColor,
     'csv-table': csvToTable,
+    'image-compressor': compressImage,
+    'heic-converter': convertHeic,
+    'chart-maker': { process: buildChart, setup: setupChartMaker },
+    'case-converter': convertCase,
+    'unit-converter': convertUnit,
+    'html-to-markdown': { process: htmlToMarkdown, setup: setupHtmlToMarkdown },
 };
