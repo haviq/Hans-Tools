@@ -52,20 +52,23 @@ const init = () => {
 
         category.tools.forEach(tool => {
             const toolCard = document.createElement('div');
-            toolCard.className = 'tool-card rounded-2xl bg-slate-900/60 border border-slate-800 p-4 cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-200 hover:border-sky-500/40 hover:-translate-y-1';
+            toolCard.className = 'tool-card group rounded-2xl bg-slate-900/60 border border-slate-800 p-4 cursor-pointer flex flex-col items-center justify-center text-center transition-all duration-300 hover:border-sky-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-sky-500/10';
             toolCard.dataset.toolId = tool.id; 
             // @ts-expect-error dynamic url
             if (tool.url) toolCard.dataset.url = tool.url;
 
+                        const iconWrap = document.createElement('div');
+            iconWrap.className = 'icon-tile w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-400/20 to-blue-600/20 border border-sky-500/20 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110';
             const icon = document.createElement('i');
-            icon.className = 'w-10 h-10 mb-3 text-sky-400';
+            icon.className = 'w-6 h-6 text-sky-300';
             icon.setAttribute('data-lucide', tool.icon);
+            iconWrap.appendChild(icon);
 
             const toolName = document.createElement('h3');
             toolName.className = 'font-semibold text-white';
-            toolName.textContent = tool.name; 
+            toolName.textContent = tool.name;
 
-            toolCard.append(icon, toolName);
+            toolCard.append(iconWrap, toolName);
 
             if (tool.subtitle) {
                 const toolSubtitle = document.createElement('p');

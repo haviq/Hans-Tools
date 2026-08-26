@@ -574,3 +574,52 @@ details[open]>summary .icon {
     min-height: 8rem;
   }
 }
+
+
+/* ===== Modern UI upgrade ===== */
+body {
+    background:
+        radial-gradient(900px circle at 15% -10%, rgba(56,189,248,0.14), transparent 40%),
+        radial-gradient(900px circle at 85% 0%, rgba(59,130,246,0.12), transparent 45%),
+        #0f172a !important;
+    background-attachment: fixed;
+}
+
+.rls-title {
+    background: linear-gradient(135deg, #7dd3fc, #3b82f6, #93c5fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.tool-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(56, 189, 248, 0.14);
+    background: linear-gradient(160deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.75));
+}
+.tool-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(400px circle at 50% 0%, rgba(56,189,248,0.16), transparent 45%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.tool-card:hover::before {
+    opacity: 1;
+}
+.tool-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.icon-tile {
+    width: 3rem;
+    height: 3rem;
+}
+
+#hero-section h1 {
+    text-shadow: 0 0 40px rgba(56, 189, 248, 0.25);
+}
