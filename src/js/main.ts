@@ -8,6 +8,7 @@ import "../css/styles.css";
 import { initRandomLetterSwap } from './randomLetterSwap.js';
 import { initDitherEffect } from './ditherEffect.js';
 import { initScroll3D } from './scroll3d.js';
+import { initThreeEffects } from './threeEffects.js';
 
 const init = () => {
     pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
@@ -192,6 +193,7 @@ const init = () => {
     initDitherEffect('#dither-canvas');
     initRandomLetterSwap('.rls-title');
     initScroll3D(document);
+    initThreeEffects('three-bg');
 
     // Mobile sidebar toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
