@@ -85,6 +85,21 @@ import { testRegex, setupRegexTester } from './regex-tester.js';
 import { convertTimestamp } from './timestamp-converter.js';
 import { checkPasswordStrength } from './password-strength.js';
 import { generatePalette } from './color-picker-palette.js';
+import { decodeJwt } from './jwt-decoder.js';
+import { removeBackground } from './background-remover.js';
+import { convertTimezone } from './timezone-converter.js';
+import { calculateAge } from './age-calculator.js';
+import { setupAudioRecorder } from './audio-recorder.js';
+import { setupScreenRecorder } from './screen-recorder.js';
+import { videoToGif } from './video-to-gif.js';
+import { svgToPng } from './svg-to-png.js';
+import { generateFavicon } from './favicon-generator.js';
+import { minifyHtml } from './html-minifier.js';
+import { setupUrlTools } from './url-encode-decode.js';
+import { generateRandom } from './random-generator.js';
+import { checkContrast } from './color-contrast-checker.js';
+import { csvToSql } from './csv-to-sql.js';
+import { calculate } from './calculator.js';
 import { cropImage } from './crop-image.js';
 import { createZip } from './zip-creator.js';
 import { renderMarkdown, setupMarkdownPreview } from './markdown-preview.js';
@@ -199,4 +214,19 @@ export const toolLogic = {
     'timestamp-converter': convertTimestamp,
     'password-strength': checkPasswordStrength,
     'color-picker-palette': generatePalette,
+    'jwt-decoder': { process: decodeJwt },
+    'background-remover': { process: removeBackground },
+    'timezone-converter': { process: convertTimezone },
+    'age-calculator': { process: calculateAge },
+    'audio-recorder': { setup: setupAudioRecorder },
+    'screen-recorder': { setup: setupScreenRecorder },
+    'video-to-gif': { process: videoToGif },
+    'svg-to-png': { process: svgToPng },
+    'favicon-generator': { process: generateFavicon },
+    'html-minifier': { process: minifyHtml },
+    'url-encode-decode': { setup: setupUrlTools },
+    'random-generator': { process: generateRandom },
+    'color-contrast-checker': { process: checkContrast },
+    'csv-to-sql': { process: csvToSql },
+    'calculator': { process: calculate },
 };

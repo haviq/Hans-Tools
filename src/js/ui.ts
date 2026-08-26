@@ -262,6 +262,163 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'jwt-decoder': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">JWT Decoder</h2>
+        <p class="mb-6 text-gray-400">Baca header & payload dari token JWT.</p>
+        <div class="space-y-4">
+            <input id="jwt-input" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 font-mono" placeholder="eyJ...">
+            <button id="process-btn" class="btn-gradient w-full">Decode JWT</button>
+            <textarea id="jwt-output" rows="10" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
+    'background-remover': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Background Remover</h2>
+        <p class="mb-6 text-gray-400">Hapus latar belakang foto (berdasarkan warna).</p>
+        <div class="space-y-4">
+            <input id="bg-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <label class="block text-sm text-gray-300">Tolerance (0-100)</label>
+            <input id="bg-tolerance" type="number" min="0" max="100" value="30" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2">
+            <button id="process-btn" class="btn-gradient w-full">Hapus Background</button>
+        </div>
+    `,
+    'timezone-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Timezone Converter</h2>
+        <p class="mb-6 text-gray-400">Konversi waktu antar zona waktu.</p>
+        <div class="space-y-4">
+            <input id="tz-input" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" placeholder="2026-08-26T12:00:00Z">
+            <select id="tz-from" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"><option value="UTC">UTC</option><option value="Asia/Jakarta">WIB</option><option value="Asia/Makassar">WITA</option><option value="Asia/Jayapura">WIT</option></select>
+            <select id="tz-to" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5"><option value="Asia/Jakarta">WIB</option><option value="UTC">UTC</option><option value="Asia/Makassar">WITA</option><option value="Asia/Jayapura">WIT</option></select>
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+            <textarea id="tz-output" rows="4" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5"></textarea>
+        </div>
+    `,
+    'age-calculator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Age Calculator</h2>
+        <p class="mb-6 text-gray-400">Hitung umur dalam tahun, bulan, hari.</p>
+        <div class="space-y-4">
+            <input id="age-input" type="date" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+            <button id="process-btn" class="btn-gradient w-full">Hitung Umur</button>
+            <div id="age-output" class="text-2xl font-bold text-sky-300 text-center"></div>
+        </div>
+    `,
+    'audio-recorder': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Audio Recorder</h2>
+        <p class="mb-6 text-gray-400">Rekam suara langsung dari browser.</p>
+        <div class="space-y-4">
+            <button id="ar-btn" class="btn-gradient w-full">Mulai Rekam</button>
+            <p class="text-sm text-slate-400">Klik tombol lagi untuk berhenti & download file .webm.</p>
+        </div>
+    `,
+    'screen-recorder': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Screen Recorder</h2>
+        <p class="mb-6 text-gray-400">Rekam layar langsung.</p>
+        <div class="space-y-4">
+            <button id="sr-btn" class="btn-gradient w-full">Mulai Rekam Layar</button>
+            <p class="text-sm text-slate-400">Klik lagi untuk berhenti & download file .webm.</p>
+        </div>
+    `,
+    'video-to-gif': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Video to GIF</h2>
+        <p class="mb-6 text-gray-400">Ubah video menjadi GIF (via FFmpeg.wasm).</p>
+        <div class="space-y-4">
+            <input id="v2g-input" type="file" accept="video/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <button id="process-btn" class="btn-gradient w-full">Konversi ke GIF</button>
+        </div>
+    `,
+    'svg-to-png': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">SVG to PNG</h2>
+        <p class="mb-6 text-gray-400">Konversi file SVG ke PNG.</p>
+        <div class="space-y-4">
+            <input id="svg-input" type="file" accept=".svg" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <button id="process-btn" class="btn-gradient w-full">Konversi</button>
+        </div>
+    `,
+    'favicon-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Favicon Generator</h2>
+        <p class="mb-6 text-gray-400">Buat favicon dari teks/emoji.</p>
+        <div class="space-y-4">
+            <input id="fav-text" type="text" value="H" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" maxlength="2">
+            <div class="grid grid-cols-2 gap-3">
+                <label class="text-sm text-gray-300">BG <input id="fav-bg" type="color" value="#2563eb" class="w-full h-10 rounded bg-gray-700 border border-gray-600"></label>
+                <label class="text-sm text-gray-300">FG <input id="fav-fg" type="color" value="#ffffff" class="w-full h-10 rounded bg-gray-700 border border-gray-600"></label>
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Generate Favicon</button>
+        </div>
+    `,
+    'html-minifier': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">HTML Minifier</h2>
+        <p class="mb-6 text-gray-400">Kecilkan ukuran HTML.</p>
+        <div class="space-y-4">
+            <textarea id="html-min-input" rows="8" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="<div>...</div>"></textarea>
+            <button id="process-btn" class="btn-gradient w-full">Minify</button>
+            <textarea id="html-min-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
+    'url-encode-decode': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">URL Encode / Decode</h2>
+        <p class="mb-6 text-gray-400">Encode dan decode URL.</p>
+        <div class="space-y-4">
+            <textarea id="url-input" rows="4" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5" placeholder="https://..."></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="url-encode" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Encode</button>
+                <button id="url-decode" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Decode</button>
+            </div>
+            <textarea id="url-output" rows="4" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5"></textarea>
+        </div>
+    `,
+    'random-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Random Generator</h2>
+        <p class="mb-6 text-gray-400">Angka acak, dadu, atau pilihan.</p>
+        <div class="space-y-4">
+            <select id="rand-type" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="number">Angka Acak</option>
+                <option value="dice">Dadu</option>
+                <option value="choice">Pilihan</option>
+            </select>
+            <div id="rand-number-options">
+                <div class="grid grid-cols-2 gap-3">
+                    <label class="text-sm text-gray-300">Min <input id="rand-min" type="number" value="1" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                    <label class="text-sm text-gray-300">Max <input id="rand-max" type="number" value="100" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                </div>
+            </div>
+            <div id="rand-choice-options" class="hidden">
+                <input id="rand-items" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" placeholder="a,b,c">
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Generate</button>
+            <textarea id="rand-output" rows="2" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5"></textarea>
+        </div>
+    `,
+    'color-contrast-checker': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Color Contrast Checker</h2>
+        <p class="mb-6 text-gray-400">Cek rasio kontras warna WCAG.</p>
+        <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+                <label class="text-sm text-gray-300">Foreground <input id="cc-fg" type="color" value="#ffffff" class="w-full h-10 rounded bg-gray-700 border border-gray-600"></label>
+                <label class="text-sm text-gray-300">Background <input id="cc-bg" type="color" value="#000000" class="w-full h-10 rounded bg-gray-700 border border-gray-600"></label>
+            </div>
+            <button id="process-btn" class="btn-gradient w-full">Cek Kontras</button>
+            <div id="cc-output" class="text-center"></div>
+        </div>
+    `,
+    'csv-to-sql': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">CSV to SQL</h2>
+        <p class="mb-6 text-gray-400">Generate query INSERT dari CSV.</p>
+        <div class="space-y-4">
+            <input id="csql-table" type="text" value="my_table" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 font-mono">
+            <textarea id="csql-input" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="nama,umur"></textarea>
+            <button id="process-btn" class="btn-gradient w-full">Generate SQL</button>
+            <textarea id="csql-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
+    'calculator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Calculator</h2>
+        <p class="mb-6 text-gray-400">Kalkulator cepat (+, -, *, /, ^, %).</p>
+        <div class="space-y-4">
+            <input id="calc-input" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5 font-mono text-xl text-center" placeholder="2 + 2 * 3">
+            <button id="process-btn" class="btn-gradient w-full">=</button>
+            <div id="calc-output" class="text-3xl font-bold text-sky-300 text-center"></div>
+        </div>
+    `,
     'image-to-ascii-art': () => `
         <h2 class="text-2xl font-bold text-white mb-4">Image to ASCII Art</h2>
         <p class="mb-6 text-gray-400">Ubah gambar menjadi teks ASCII.</p>
