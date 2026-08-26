@@ -1,6 +1,6 @@
 /**
- * Three.js 3D/4D Effects — Partikel, Geometric Morphing, Mouse Parallax
- * Butuh Three.js (sudah load via CDN di index.html)
+ * Three.js 3D/4D Effects — Partikel, Geometric Morphing, Mouse/Touch Parallax
+ * Mobile-optimized: reduces particles, disables heavy materials, uses touch events
  */
 
 declare var THREE: any;
@@ -26,14 +26,24 @@ let camera: any;
 let renderer: any;
 let particles: Particle | null = null;
 let morphShapes: MorphShape[] = [];
-let mouse = { x: 0, y: 0 };
-let targetMouse = { x: 0, y: 0 };
+let pointer = { x: 0, y: 0 };
+let targetPointer = { x: 0, y: 0 };
 let animationId: number;
 let time = 0;
+let isMobile = false;
+let particleCount = 2000;
+
+function detectMobile(): boolean {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || window.innerWidth < 768;
+}
 
 export function initThreeEffects(containerId = 'three-bg') {
   const container = document.getElementById(containerId);
   if (!container || typeof THREE === 'undefined') return;
+
+  isMobile = detectMobile();
+  particleCount = isMobile ? 600 : 2000;
 
   // Scene
   scene = new THREE.Scene();
@@ -41,12 +51,12 @@ export function initThreeEffects(containerId = 'three-bg') {
   // Camera
   const aspect = container.clientWidth / container.clientHeight;
   camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
-  camera.position.z = 50;
+  camera.position.z = isMobile ? 60 : 50;
 
-  // Renderer
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  // Renderer — lower pixel ratio on mobile
+  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
   renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
   container.appendChild(renderer.domElement);
 
   // Partikel 3D interaktif
@@ -55,19 +65,24 @@ export function initThreeEffects(containerId = 'three-bg') {
   // Geometric morphing shapes (4D: time-based morphing)
   createMorphShapes();
 
-  // Lights
-  const ambient = new THREE.AmbientLight(0x404060, 0.8);
+  // Lights — simpler on mobile
+  const ambient = new THREE.AmbientLight(0x404060, isMobile ? 1 : 0.8);
   scene.add(ambient);
-  const dirLight = new THREE.DirectionalLight(0x38bdf8, 1);
-  dirLight.position.set(10, 20, 15);
-  scene.add(dirLight);
-  const pointLight = new THREE.PointLight(0xf472b6, 0.6, 100);
-  pointLight.position.set(-10, -10, 20);
-  scene.add(pointLight);
+  if (!isMobile) {
+    const dirLight = new THREE.DirectionalLight(0x38bdf8, 1);
+    dirLight.position.set(10, 20, 15);
+    scene.add(dirLight);
+    const pointLight = new THREE.PointLight(0xf472b6, 0.6, 100);
+    pointLight.position.set(-10, -10, 20);
+    scene.add(pointLight);
+  }
 
-  // Mouse parallax
-  document.addEventListener('mousemove', onMouseMove);
+  // Pointer events — mouse + touch
+  document.addEventListener('mousemove', onPointerMove);
+  document.addEventListener('touchmove', onTouchMove, { passive: true });
+  document.addEventListener('touchstart', onTouchMove, { passive: true });
   window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', onResize);
 
   // Start loop
   animate();
@@ -75,8 +90,11 @@ export function initThreeEffects(containerId = 'three-bg') {
   // Cleanup fn
   return () => {
     cancelAnimationFrame(animationId);
-    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mousemove', onPointerMove);
+    document.removeEventListener('touchmove', onTouchMove);
+    document.removeEventListener('touchstart', onTouchMove);
     window.removeEventListener('resize', onResize);
+    window.removeEventListener('orientationchange', onResize);
     renderer.dispose();
     if (particles) {
       particles.geometry.dispose();
@@ -92,7 +110,7 @@ export function initThreeEffects(containerId = 'three-bg') {
 }
 
 function createParticles() {
-  const count = 2000;
+  const count = particleCount;
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
@@ -118,11 +136,11 @@ function createParticles() {
     colors[i * 3 + 1] = c.g;
     colors[i * 3 + 2] = c.b;
 
-    sizes[i] = 0.5 + Math.random() * 1.5;
+    sizes[i] = isMobile ? 0.8 + Math.random() * 1.2 : 0.5 + Math.random() * 1.5;
 
-    velocities[i * 3] = (Math.random() - 0.5) * 0.02;
-    velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.02;
-    velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
+    velocities[i * 3] = (Math.random() - 0.5) * (isMobile ? 0.015 : 0.02);
+    velocities[i * 3 + 1] = (Math.random() - 0.5) * (isMobile ? 0.015 : 0.02);
+    velocities[i * 3 + 2] = (Math.random() - 0.5) * (isMobile ? 0.015 : 0.02);
   }
 
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -130,10 +148,10 @@ function createParticles() {
   geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
   const material = new THREE.PointsMaterial({
-    size: 1.2,
+    size: isMobile ? 1.5 : 1.2,
     vertexColors: true,
     transparent: true,
-    opacity: 0.7,
+    opacity: isMobile ? 0.6 : 0.7,
     sizeAttenuation: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
@@ -154,34 +172,51 @@ function createMorphShapes() {
   ];
 
   shapes.forEach((shape, i) => {
-    const material = new THREE.MeshPhysicalMaterial({
-      color: shape.color,
-      metalness: 0.3,
-      roughness: 0.4,
-      transmission: 0.15,
-      thickness: 0.5,
-      transparent: true,
-      opacity: 0.35,
-      clearcoat: 0.5,
-      clearcoatRoughness: 0.1,
-    });
+    // Simpler material on mobile (no transmission/clearcoat)
+    const material = isMobile
+      ? new THREE.MeshStandardMaterial({
+          color: shape.color,
+          metalness: 0.2,
+          roughness: 0.5,
+          transparent: true,
+          opacity: 0.4,
+        })
+      : new THREE.MeshPhysicalMaterial({
+          color: shape.color,
+          metalness: 0.3,
+          roughness: 0.4,
+          transmission: 0.15,
+          thickness: 0.5,
+          transparent: true,
+          opacity: 0.35,
+          clearcoat: 0.5,
+          clearcoatRoughness: 0.1,
+        });
 
     const mesh = new THREE.Mesh(shape.geometry.clone(), material);
     mesh.position.set(
-      (i % 2 === 0 ? -1 : 1) * 18,
-      (i < 2 ? 1 : -1) * 12,
+      (i % 2 === 0 ? -1 : 1) * (isMobile ? 14 : 18),
+      (i < 2 ? 1 : -1) * (isMobile ? 10 : 12),
       -20 + i * 5
     );
     mesh.rotation.set(Math.random(), Math.random(), Math.random());
     scene.add(mesh);
 
-    const targets = [
-      new THREE.TorusKnotGeometry(4, 1.5, 100, 16),
-      new THREE.IcosahedronGeometry(4, 1),
-      new THREE.OctahedronGeometry(5, 1),
-      new THREE.DodecahedronGeometry(4, 1),
-      new THREE.SphereGeometry(4, 32, 32),
-    ];
+    // Fewer target geometries on mobile
+    const targets = isMobile
+      ? [
+          new THREE.TorusKnotGeometry(4, 1.5, 60, 12),
+          new THREE.IcosahedronGeometry(4, 0),
+          new THREE.OctahedronGeometry(5, 0),
+          new THREE.DodecahedronGeometry(4, 0),
+        ]
+      : [
+          new THREE.TorusKnotGeometry(4, 1.5, 100, 16),
+          new THREE.IcosahedronGeometry(4, 1),
+          new THREE.OctahedronGeometry(5, 1),
+          new THREE.DodecahedronGeometry(4, 1),
+          new THREE.SphereGeometry(4, 32, 32),
+        ];
 
     morphShapes.push({
       mesh,
@@ -199,12 +234,20 @@ function createMorphShapes() {
         ms.currentIndex = (ms.currentIndex + 1) % ms.targetGeometries.length;
       }
     });
-  }, 4000 + Math.random() * 2000);
+  }, isMobile ? 6000 : 4000 + Math.random() * 2000);
 }
 
-function onMouseMove(e: MouseEvent) {
-  targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-  targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+function onPointerMove(e: MouseEvent) {
+  targetPointer.x = (e.clientX / window.innerWidth) * 2 - 1;
+  targetPointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
+}
+
+function onTouchMove(e: TouchEvent) {
+  if (e.touches.length > 0) {
+    const touch = e.touches[0];
+    targetPointer.x = (touch.clientX / window.innerWidth) * 2 - 1;
+    targetPointer.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+  }
 }
 
 function onResize() {
@@ -221,8 +264,9 @@ function animate() {
   animationId = requestAnimationFrame(animate);
   time += 0.01;
 
-  mouse.x += (targetMouse.x - mouse.x) * 0.05;
-  mouse.y += (targetMouse.y - mouse.y) * 0.05;
+  // Smooth pointer follow
+  pointer.x += (targetPointer.x - pointer.x) * (isMobile ? 0.08 : 0.05);
+  pointer.y += (targetPointer.y - pointer.y) * (isMobile ? 0.08 : 0.05);
 
   if (particles) {
     const pos = particles.geometry.attributes.position.array;
@@ -234,15 +278,21 @@ function animate() {
       pos[i + 1] += vel[i + 1];
       pos[i + 2] += vel[i + 2];
 
-      const dx = mouse.x * 30 - pos[i];
-      const dy = mouse.y * 30 - pos[i + 1];
+      // Mouse/touch attraction — reduced on mobile
+      const attractStrength = isMobile ? 20 : 30;
+      const attractRadius = isMobile ? 25 : 40;
+      const attractForce = isMobile ? 0.02 : 0.03;
+
+      const dx = pointer.x * attractStrength - pos[i];
+      const dy = pointer.y * attractStrength - pos[i + 1];
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 40) {
-        const force = (40 - dist) / 40 * 0.03;
+      if (dist < attractRadius) {
+        const force = (attractRadius - dist) / attractRadius * attractForce;
         pos[i] += dx * force;
         pos[i + 1] += dy * force;
       }
 
+      // Return to original orbit
       const ox = orig[i] - pos[i];
       const oy = orig[i + 1] - pos[i + 1];
       const oz = orig[i + 2] - pos[i + 2];
@@ -250,7 +300,8 @@ function animate() {
       pos[i + 1] += oy * 0.001;
       pos[i + 2] += oz * 0.001;
 
-      pos[i + 1] += Math.sin(time + i * 0.01) * 0.02;
+      // Subtle wave
+      pos[i + 1] += Math.sin(time + i * 0.01) * (isMobile ? 0.015 : 0.02);
     }
     particles.geometry.attributes.position.needsUpdate = true;
 
@@ -259,16 +310,21 @@ function animate() {
   }
 
   morphShapes.forEach((ms, i) => {
-    ms.mesh.rotation.x += 0.003 + i * 0.001;
-    ms.mesh.rotation.y += 0.005 + i * 0.0015;
+    const rotSpeed = isMobile ? 0.002 : 0.003;
+    ms.mesh.rotation.x += rotSpeed + i * 0.001;
+    ms.mesh.rotation.y += rotSpeed * 1.5 + i * 0.0015;
 
-    ms.mesh.position.y += Math.sin(time * 0.5 + i) * 0.02;
+    ms.mesh.position.y += Math.sin(time * 0.5 + i) * (isMobile ? 0.015 : 0.02);
 
-    ms.mesh.position.x += (mouse.x * 5 - ms.mesh.position.x * 0.1) * 0.02;
-    ms.mesh.position.y += (mouse.y * 5 - ms.mesh.position.y * 0.1) * 0.02;
+    // Parallax on shapes — reduced on mobile
+    const parallaxStrength = isMobile ? 3 : 5;
+    const parallaxDamp = isMobile ? 0.015 : 0.02;
+    ms.mesh.position.x += (pointer.x * parallaxStrength - ms.mesh.position.x * 0.1) * parallaxDamp;
+    ms.mesh.position.y += (pointer.y * parallaxStrength - ms.mesh.position.y * 0.1) * parallaxDamp;
 
+    // Geometry morphing
     if (ms.morphing) {
-      ms.progress += 0.015;
+      ms.progress += isMobile ? 0.01 : 0.015;
       if (ms.progress >= 1) {
         ms.progress = 0;
         ms.morphing = false;
@@ -292,8 +348,11 @@ function animate() {
     }
   });
 
-  camera.position.x += (mouse.x * 2 - camera.position.x) * 0.02;
-  camera.position.y += (mouse.y * 2 - camera.position.y) * 0.02;
+  // Camera subtle parallax
+  const camStrength = isMobile ? 1.5 : 2;
+  const camDamp = isMobile ? 0.015 : 0.02;
+  camera.position.x += (pointer.x * camStrength - camera.position.x) * camDamp;
+  camera.position.y += (pointer.y * camStrength - camera.position.y) * camDamp;
   camera.lookAt(0, 0, 0);
 
   renderer.render(scene, camera);
