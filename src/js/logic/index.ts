@@ -73,6 +73,12 @@ import { generateLorem, setupLoremIpsum } from './lorem-ipsum.js';
 import { speakText, setupTextToSpeech } from './text-to-speech.js';
 import { countWords } from './word-counter.js';
 import { convertBase } from './number-base.js';
+import { applyFilter } from './image-filters.js';
+import { rotateImage } from './image-rotate.js';
+import { generateBarcode, setupBarcodeGenerator } from './barcode-generator.js';
+import { generateTable, setupMarkdownTable } from './markdown-table.js';
+import { parseCsvEditor, setupCsvEditor } from './csv-editor.js';
+import { pdfConverter } from './pdf-converter.js';
 import { cropImage } from './crop-image.js';
 import { createZip } from './zip-creator.js';
 import { renderMarkdown, setupMarkdownPreview } from './markdown-preview.js';
@@ -175,4 +181,10 @@ export const toolLogic = {
     'text-to-speech': { process: speakText, setup: setupTextToSpeech },
     'word-counter': countWords,
     'number-base': convertBase,
+    'image-filters': applyFilter,
+    'image-rotate': rotateImage,
+    'barcode-generator': { process: generateBarcode, setup: setupBarcodeGenerator },
+    'markdown-table': { process: generateTable, setup: setupMarkdownTable },
+    'csv-editor': { process: parseCsvEditor, setup: setupCsvEditor },
+    'pdf-converter': pdfConverter,
 };

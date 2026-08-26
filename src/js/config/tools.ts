@@ -29,6 +29,12 @@ export const categories = [
             { id: 'text-to-speech', name: 'Text to Speech', icon: 'audio-lines', subtitle: 'Baca teks dengan suara browser.' },
             { id: 'word-counter', name: 'Word Counter', icon: 'align-left', subtitle: 'Hitung kata, karakter, baris.' },
             { id: 'number-base', name: 'Number Base', icon: 'binary', subtitle: 'Konversi desimal/biner/oktal/heksa.' },
+            { id: 'image-filters', name: 'Image Filters', icon: 'wand', subtitle: 'Grayscale, sepia, invert, blur image.' },
+            { id: 'image-rotate', name: 'Rotate Gambar', icon: 'rotate-cw', subtitle: 'Putar gambar 90/180/270 derajat.' },
+            { id: 'barcode-generator', name: 'Barcode Generator', icon: 'scan', subtitle: 'Buat barcode CODE128/EAN/UPC.' },
+            { id: 'markdown-table', name: 'Markdown Table', icon: 'table', subtitle: 'Generator tabel markdown.' },
+            { id: 'csv-editor', name: 'CSV Editor', icon: 'table-2', subtitle: 'Lihat dan edit CSV sebagai tabel.' },
+            { id: 'pdf-converter', name: 'PDF Converter', icon: 'file-cog', subtitle: 'Kompres/rotasi PDF via pdf-lib.' },
         ]
     },
     {

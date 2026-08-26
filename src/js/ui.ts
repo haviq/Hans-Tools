@@ -262,6 +262,94 @@ const createFileInputHTML = (options = {}) => {
 };
 
 export const toolTemplates = {
+    'image-filters': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Image Filters</h2>
+        <p class="mb-6 text-gray-400">Terapkan filter ke gambar langsung di browser.</p>
+        <div class="space-y-4">
+            <input id="filter-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <select id="filter-type" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="grayscale">Grayscale</option>
+                <option value="sepia">Sepia</option>
+                <option value="invert">Invert</option>
+                <option value="brightness">Brightness</option>
+                <option value="contrast">Contrast</option>
+                <option value="blur">Blur</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Terapkan Filter</button>
+        </div>
+    `,
+    'image-rotate': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Rotate Gambar</h2>
+        <p class="mb-6 text-gray-400">Putar gambar 90/180/270 derajat.</p>
+        <div class="space-y-4">
+            <input id="rotate-input" type="file" accept="image/*" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <select id="rotate-deg" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="90">90°</option>
+                <option value="180">180°</option>
+                <option value="270">270°</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Putar Gambar</button>
+        </div>
+    `,
+    'barcode-generator': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Barcode Generator</h2>
+        <p class="mb-6 text-gray-400">Buat barcode dengan berbagai format.</p>
+        <div class="space-y-4">
+            <input id="barcode-text" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" placeholder="Teks / angka">
+            <select id="barcode-format" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="CODE128">CODE128</option>
+                <option value="EAN13">EAN13</option>
+                <option value="UPC">UPC</option>
+                <option value="codabar">Codabar</option>
+            </select>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Generate</button>
+                <button id="barcode-download" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Download SVG</button>
+            </div>
+            <div id="barcode-output" class="flex justify-center p-4 bg-white rounded-xl"></div>
+        </div>
+    `,
+    'markdown-table': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">Markdown Table</h2>
+        <p class="mb-6 text-gray-400">Generator tabel markdown dengan cepat.</p>
+        <div class="space-y-4">
+            <label class="block text-sm font-medium text-gray-300">Header (pisahkan koma)</label>
+            <input id="mt-headers" type="text" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5" placeholder="Nama,Umur,Kota">
+            <div class="grid grid-cols-2 gap-3">
+                <label class="block text-sm text-gray-300">Baris <input id="mt-rows" type="number" min="1" max="20" value="3" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+                <label class="block text-sm text-gray-300">Kolom <input id="mt-cols" type="number" min="1" max="10" value="3" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2"></label>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Generate</button>
+                <button id="mt-copy" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Salin</button>
+            </div>
+            <textarea id="mt-output" rows="8" readonly class="w-full bg-gray-900 border border-gray-600 text-sky-300 rounded-lg p-2.5 font-mono text-sm"></textarea>
+        </div>
+    `,
+    'csv-editor': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">CSV Editor</h2>
+        <p class="mb-6 text-gray-400">Tempel CSV dan lihat sebagai tabel, lalu export ulang.</p>
+        <div class="space-y-4">
+            <textarea id="cse-input" rows="6" class="w-full bg-gray-900 border border-gray-600 text-gray-300 rounded-lg p-2.5 font-mono text-sm" placeholder="nama,umur,kota"></textarea>
+            <div class="grid grid-cols-2 gap-3">
+                <button id="process-btn" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Parse CSV</button>
+                <button id="cse-export" class="btn bg-sky-600 hover:bg-sky-700 text-white font-semibold py-2 rounded-lg">Export CSV</button>
+            </div>
+            <div id="cse-table" class="overflow-x-auto"></div>
+        </div>
+    `,
+    'pdf-converter': () => `
+        <h2 class="text-2xl font-bold text-white mb-4">PDF Converter</h2>
+        <p class="mb-6 text-gray-400">Kompres atau rotasi PDF langsung di browser.</p>
+        <div class="space-y-4">
+            <input id="pdfc-input" type="file" accept="application/pdf" class="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-sky-600 file:text-white file:font-semibold">
+            <select id="pdfc-action" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg p-2.5">
+                <option value="compress">Kompres</option>
+                <option value="rotate">Rotasi 90°</option>
+            </select>
+            <button id="process-btn" class="btn-gradient w-full">Proses PDF</button>
+        </div>
+    `,
     'timer-stopwatch': () => `
         <h2 class="text-2xl font-bold text-white mb-4">Timer / Stopwatch</h2>
         <p class="mb-6 text-gray-400">Stopwatch real-time di browser.</p>
