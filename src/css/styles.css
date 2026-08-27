@@ -684,3 +684,15 @@ body {
     display: none !important;
   }
 }
+
+/* Strong override so mobile-show always wins */
+#sidebar.mobile-show {
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
+}
+#sidebar-overlay.show {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
