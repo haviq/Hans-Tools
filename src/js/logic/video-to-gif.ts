@@ -9,7 +9,7 @@ export async function videoToGif() {
         if (!win.FFmpegWASM) {
             await new Promise<void>((resolve, reject) => {
                 const s = document.createElement('script');
-                s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.15/dist/umd/ffmpeg.js';
+                s.src = '/ffmpeg/ffmpeg.js';
                 s.onload = () => resolve();
                 s.onerror = () => reject(new Error('Gagal memuat FFmpeg'));
                 document.head.appendChild(s);
