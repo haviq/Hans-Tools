@@ -19,7 +19,7 @@ export async function convertFile() {
         const { FFmpeg } = win.FFmpegWASM;
         const ffmpeg = new FFmpeg();
         ffmpeg.on('log', ({ message }: any) => console.log('[ffmpeg]', message));
-        await ffmpeg.load();
+        await ffmpeg.load({ coreURL: '/ffmpeg/ffmpeg-core.js', wasmURL: '/ffmpeg/ffmpeg-core.wasm' });
         const data = new Uint8Array(await file.arrayBuffer());
         await ffmpeg.writeFile(file.name, data);
         const target = (document.getElementById('converter-format') as HTMLSelectElement | null)?.value || 'mp4';

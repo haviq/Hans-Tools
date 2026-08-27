@@ -17,7 +17,7 @@ export async function videoToGif() {
         }
         const { FFmpeg } = win.FFmpegWASM;
         const ffmpeg = new FFmpeg();
-        await ffmpeg.load();
+        await ffmpeg.load({ coreURL: '/ffmpeg/ffmpeg-core.js', wasmURL: '/ffmpeg/ffmpeg-core.wasm' });
         await ffmpeg.writeFile(file.name, new Uint8Array(await file.arrayBuffer()));
         const outName = file.name.split('.').slice(0, -1).join('.') + '.gif';
         await ffmpeg.exec(['-i', file.name, '-vf', 'fps=10,scale=480:-1', '-loop', '0', outName]);
