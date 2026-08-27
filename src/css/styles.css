@@ -114,7 +114,7 @@ input[type="file"]::file-selector-button {
 
 /* This rule ensures canvases in side-by-side panels display at their natural rendered size. */
 .pdf-panel canvas {
-    display: block;
+  
     margin: 0 auto;
 }
 
@@ -531,13 +531,13 @@ details[open]>summary .icon {
   opacity: 1;
   pointer-events: auto;
 
-  display: block;
+
 }
 #sidebar.mobile-show {
   transform: translateY(0);
   pointer-events: auto;
 
-  display: block;
+
   position: fixed;
   left: 0;
   top: 4rem;
