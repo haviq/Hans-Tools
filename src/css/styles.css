@@ -528,9 +528,15 @@ details[open]>summary .icon {
 
 /* Mobile sidebar toggle */
 #sidebar-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+
   display: block;
 }
 #sidebar.mobile-show {
+  transform: translateY(0);
+  pointer-events: auto;
+
   display: block;
   position: fixed;
   left: 0;
