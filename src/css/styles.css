@@ -653,3 +653,34 @@ body {
     border-color: transparent;
     box-shadow: 0 4px 12px rgba(56, 189, 248, 0.25);
 }
+
+/* ===== Sidebar slide-down animation (mobile + web) ===== */
+#sidebar {
+  display: block !important;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+  visibility: hidden;
+}
+#sidebar.mobile-show {
+  transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+#sidebar-overlay {
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+#sidebar-overlay.show {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (min-width: 1024px) {
+  #sidebar {
+    transform: translateY(0) !important;
+    visibility: visible !important;
+  }
+  #sidebar-overlay {
+    display: none !important;
+  }
+}
