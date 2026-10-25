@@ -40,7 +40,7 @@
     "heic2any": "^0.0.4",
     "html2canvas": "^1.4.1",
     "javascript-obfuscator": "^4.1.1",
-    "jspdf": "^3.0.3",
+    "jspdf": "^4.2.1",
     "jszip": "^3.10.1",
     "lucide": "^0.545.0",
     "pdf-lib": "^1.17.1",
@@ -51,6 +51,7 @@
     "terser": "^5.44.0",
     "tesseract.js": "^6.0.1",
     "tiff": "^7.1.2",
+    "tinypool": "^2.2.0",
     "utif": "^3.1.0"
   }
 }
